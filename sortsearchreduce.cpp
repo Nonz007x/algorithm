@@ -1,7 +1,29 @@
 #include <iostream>
-#include "quicksort.h"
 #include <string>
 #include <sstream>  
+
+int lomuto_partition(int* arr, int low, int high) {
+  int pivot = arr[high];
+  int i = low - 1;
+
+  for (int j = low; j < high; j++) {
+    if (arr[j] < pivot) {
+      i++;
+      std::swap(arr[i], arr[j]);
+    }
+  }
+
+  std::swap(arr[i + 1], arr[high]);
+  return i + 1;
+}
+
+void quicksort(int* arr, int low, int high) {
+  if (low < high) {
+    int pivotIndex = lomuto_partition(arr, low ,high);
+    quicksort(arr, low, pivotIndex - 1);
+    quicksort(arr, pivotIndex + 1, high);
+  }
+}
 
 std::string buildStream(int* arr, int size) {
   std::stringstream ss;
@@ -21,6 +43,7 @@ std::string searchAndReduce(std::string nums) {
   int tempArr[nums.length()];
   std::stringstream ss;
 
+  // search for max consecutive
   for (int i = 0; nums[i] != '\0'; i++) {
     while (nums[i] == nums[i + 1]) {
       i++;

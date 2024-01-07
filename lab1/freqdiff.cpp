@@ -1,12 +1,12 @@
 #include <iostream>
 #include <limits.h>
 #include <unordered_map>
+#include <algorithm>
 #include <vector>
 
 int freqDiff(const int* arr, const int n) {
     std::unordered_map<int, int> countMap;
 
-    int maxElement = arr[0];
     int maxCount = 1;
     int minCount = INT_MAX;
 
@@ -15,15 +15,14 @@ int freqDiff(const int* arr, const int n) {
         countMap[currentElement]++;
 
         if (countMap[currentElement] > maxCount) {
-            maxElement = currentElement;
             maxCount = countMap[currentElement];
-        }
-
-        if (countMap[currentElement] < minCount) {
-            minCount = countMap[currentElement];
         }
     }
 
+    for (const auto i : countMap) {
+        minCount = std::min(i.second, minCount);
+    }
+    
     int maxMinDiff = maxCount - minCount;
     return maxMinDiff;
 }
@@ -39,7 +38,7 @@ int main() {
 
     int result = freqDiff(arr, n);
 
-    std::cout << "Element with maximum occurrence: " << result << std::endl;
+    std::cout << result << std::endl;
 
     return 0;
 }

@@ -1,11 +1,6 @@
 #include <iostream>
 
-int count = 0;
-void swap(int& a, int& b) {
-	int temp = a;
-	a = b;
-	b = temp;
-}
+
 int lomuto_partition(int* arr, int low, int high) {
   int pivot = arr[high];
   int i = low - 1;
@@ -29,27 +24,11 @@ void quicksort(int* arr, int low, int high) {
   }
 }
 
-int concount(int* arr, int n) {
-  quicksort(arr, 0, n - 1);
-  int count = 1;
-  for (int i = 0; i < n-1; i++) {
-    if (arr[i+1] != arr[i] + 1) {
-      count++;
-    }
-  }
-
-  return count;
-}
-
 int main() {
-  int n;
-  std::cin >> n;
-  int a[n];
-  
-  for (int i = 0; i < n; i++) {
-    std::cin >> a[i];
-  }
-
-  std::cout << concount(a, n) << std::endl;
+  int a[] = {2, 3, 1};
+  quicksort(a, 0, 2);
+  for (const auto num: a)
+    std::cout << num << " ";
+  std::cout << "\n" << 0b10011 << " ";
   return 0;
 }

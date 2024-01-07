@@ -1,43 +1,50 @@
 #include <iostream>
-#include <unordered_map>
+using namespace std;
 
-void overlab(const int* a, const int* b, const int n) {
-    std::unordered_map<int ,int> timePoints;
-    
-    int maxTrafficTime = 0;
-    int maxTrafficCount = 1;
+void getInput(int *arr, int n) {
+  for (int i = 0; i < n; i++) {
+    cin >> arr[i];
+  }
+}
 
-    for (int i = 0; i < n; i++) {
-        int enteringTime = a[i];
-        int exitingTime = b[i];
-        timePoints[enteringTime]++;
-        timePoints[exitingTime]++;
-
-        if (timePoints[enteringTime] > maxTrafficCount) {
-            maxTrafficCount = timePoints[enteringTime];
-            maxTrafficTime = enteringTime;
-        }
-
-        if (timePoints[exitingTime] > maxTrafficCount) {
-            maxTrafficCount = timePoints[exitingTime];
-            maxTrafficTime = exitingTime;
-        }
-    }
-    std::cout << maxTrafficTime << " " << maxTrafficCount << "\n";
+int inRange(int start, int targetTime, int end) {
+  return targetTime >= start && targetTime <= end ? 1 : 0;
 }
 
 int main() {
-    int n;
+  int n;
     std::cin >> n;
-    int a[n], b[n];
+    int arr[n], brr[n];
     for (int i = 0; i < n; i++) {
-        std::cin >> a[i];
+        std::cin >> arr[i];
     }
 
     for (int i = 0; i < n; i++) {
-        std::cin >> b[i];
+        std::cin >> brr[i];
     }
 
-    overlab(a, b, n);   
-    return 0;
+  int minTime = arr[0], maxTime = brr[0];
+  for (int i = 0; i < n; i++) {
+    if (arr[i] < minTime) {
+      minTime = arr[i];
+    }
+    if (brr[i] > maxTime) {
+      maxTime = brr[i];
+    }
+  }
+
+  int maxPresent = 0;
+  int idx = -1;
+  for (int i = minTime; i <= maxTime; i++) {
+    int curPresent = 0;
+    for (int j = 0; j < n; j++) {
+      curPresent += inRange(arr[j], i, brr[j]);
+    }
+    if (curPresent > maxPresent) {
+      maxPresent = curPresent;
+      idx = i;
+    }
+  }
+  cout << idx << " " << maxPresent << endl;
+  return 0;
 }
