@@ -6,7 +6,7 @@ void overlab(const int* a, const int* b, const int n) {
 
     int maxTrafficTime = 0;
     int maxTrafficCount = 1;
-
+ 
     for (int i = 0; i < n; i++) {
         timePoints[a[i]]++;
         timePoints[b[i]]++;

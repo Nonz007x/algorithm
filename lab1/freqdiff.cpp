@@ -10,7 +10,7 @@ int freqDiff(const int* arr, const int n) {
     int maxCount = 1;
     int minCount = INT_MAX;
 
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         int currentElement = arr[i];
         countMap[currentElement]++;
 
@@ -19,9 +19,11 @@ int freqDiff(const int* arr, const int n) {
         }
     }
 
-    for (const auto i : countMap) {
-        minCount = std::min(i.second, minCount);
+    for (int i = 0; i < n; i++) {
+        if (countMap[i] != 0) {
+            minCount = std::min(countMap[i], minCount);
     }
+}
     
     int maxMinDiff = maxCount - minCount;
     return maxMinDiff;
