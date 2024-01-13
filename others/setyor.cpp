@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_map>
 
 class Sett {
 private:
@@ -91,17 +92,28 @@ public:
 
 };  
 
+struct Node {
+  int value;
+  int order;
+
+  Node(int v, int o) : value(v), order(o) {}
+};
+
 int main() {
   Sett* a = new Sett;
   Sett* b = new Sett;
   Sett* intersectSet = new Sett;
   Sett* unionSet = new Sett;
-
+  std::unordered_map<int, int> setA;
+  std::unordered_map<int, int> setB;
+  std::unordered_map<int, int> setC;
+  
   int n;
   std::cin >> n;
   for (int i = 0; i < n; i++) {
     int temp;
     std::cin >> temp;
+    setA[temp] = temp;
     a->insert(temp);
     unionSet->insert(temp);
   }

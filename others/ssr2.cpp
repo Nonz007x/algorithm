@@ -40,7 +40,7 @@ std::string searchAndReduce(std::string nums) {
   int arrIterator = 0;
   int consecutive = 1;
   int maxConsecutive = 1;
-  int tempArr[nums.length()];
+  int tempMaxConsecutiveNums[nums.length()];
   std::stringstream ss;
 
   // search for max consecutive
@@ -52,41 +52,41 @@ std::string searchAndReduce(std::string nums) {
 
     if (consecutive > maxConsecutive) {
       maxConsecutive = consecutive;
-      consecutive = 1;
     }
+    consecutive = 1;
   }
 
   consecutive = 1;
-
+  std::cout << "max = " << maxConsecutive << "\n";
   for (int i = 0; nums[i] != '\0'; i++) {
     while (nums[i] == nums[i + 1]) {
       i++;
       consecutive++;
     }
+    std::cout << nums[i] << " consecutive: " << consecutive << "\n";
 
-    if (consecutive >= maxConsecutive) {
-      tempArr[arrIterator++] = nums[i] - '0';
-      consecutive = 1;
+    if (consecutive >= maxConsecutive) { // store most consecutive numbers
+      tempMaxConsecutiveNums[arrIterator++] = nums[i] - '0';
     }
+    consecutive = 1;
     ss << nums[i];
   }
 
-  quicksort(tempArr, 0, arrIterator);
+  quicksort(tempMaxConsecutiveNums, 0, arrIterator - 1);
 
   int outputArr[arrIterator];
-  int outputArrSize = 0;
+  int outputArrMax = 0;
 
   for (int i = 0; i < arrIterator; i++) {
-    if (tempArr[i] != tempArr[i + 1]) {
-      outputArr[outputArrSize++] = tempArr[i];
-    }
+    if (tempMaxConsecutiveNums[i] != tempMaxConsecutiveNums[i + 1])
+      outputArr[outputArrMax++] = tempMaxConsecutiveNums[i];
   }
-
-  for (int i = 0; i < outputArrSize; i++) {
+  
+  for (int i = 0; i < outputArrMax; i++) {
     std::cout << outputArr[i] << " ";
   }
   std::cout << "\n";
-  
+
   return ss.str();
 }
 
