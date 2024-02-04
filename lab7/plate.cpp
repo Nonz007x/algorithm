@@ -57,17 +57,14 @@ void perm(int *arr, int n, int k) {
 
 int plate(int *arr, int *nums, int n, int k) {
 	if (k == n) {
-		for (int i = 0; i < n - 1; i++) {
-			if (arr[i] == 1 && arr[i + 1] == 1) {
-				return 0;
-			}
-		}
-
 		int sum = 0;
-		for(int i = 0; i < n; i++) {
+		for (int i = 0; i < n - 1; i++) {
 			if (arr[i] == 1) {
+        if (arr[i + 1] == 1) {
+			  	return 0;
+        }
 				sum += nums[i];
-			}
+			}  
 		}
 		return sum;
 	}
@@ -87,7 +84,6 @@ int main() {
 		arr[i] = 0;
 	}
 
-	// std::cout << plate(arr, nums, 10, 0);
-  perm(new int[3]{3, 2, 1}, 3, 0);
+	std::cout << plate(arr, nums, 10, 0);
 	return 0;
 }

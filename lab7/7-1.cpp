@@ -84,6 +84,5 @@ int main() {
   lexicography(new int[n], arr, n, 0, used);
   // perm(arr, n, 0);
 
-
   return 0;
 }

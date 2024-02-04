@@ -3,10 +3,10 @@
 #include <algorithm>
 #include <string>
 
-int lexicography(int *arr, int* nums, int n, int k, int c) {
+int lexicography(int *arr, int n, int k, int c) {
   if (c == k) {
     for (int i = 0; i < k; i++) {
-      std::cout << nums[arr[i]] << " ";
+      std::cout << arr[i] + 1 << " ";
     }
     std::cout << "\n";
     return 1;
@@ -14,7 +14,7 @@ int lexicography(int *arr, int* nums, int n, int k, int c) {
     int sum = 0;
     for (int i = (c == 0) ? 0 : arr[c - 1] + 1; i < n; i++) {
       arr[c] = i;
-      sum += lexicography(arr, nums, n, k, c + 1);
+      sum += lexicography(arr, n, k, c + 1);
     }
     return sum;
   }
@@ -23,12 +23,8 @@ int lexicography(int *arr, int* nums, int n, int k, int c) {
 int main() {
   int n, k;
   std::cin >> n >> k;
-  int nums[n];
-  for (int i = 1; i <= n; i++) {
-    nums[i - 1] = i;
-  }
-  
-  std::cout << lexicography(new int[n], nums, n, k, 0);
+
+  std::cout << lexicography(new int[n], n, k, 0);
 
   return 0;
 }
