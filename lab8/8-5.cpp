@@ -1,25 +1,24 @@
 #include <iostream>
-
-// < couponValue
-// > 3 books
-// no duplicate
-
+int count = 0;
 void coupon(int *arr, int nums[], int n, int c, int couponValue, int prevSum) {
-  if (c == 3) {
+  count++;
+  if (c == n) {
     std::cout << prevSum << "\n";
-  } else {
-    for (int i = (c == 0) ? 0 : arr[c - 1] + 1; i < n; i++) {
-      arr[c] = i;
-      prevSum += nums[i];
-      
-      if (prevSum > couponValue) {
-        prevSum -= nums[i];
-      }
-      else {
-        coupon(arr, nums, n, c + 1, couponValue, prevSum);
-        prevSum -= nums[i];
-      }
+    return;
+  }
+  else if (c >= 3) {
+    std::cout << prevSum << "\n";
+  }
+
+  for (int i = (c == 0) ? 0 : arr[c - 1] + 1; i < n; i++) {
+    arr[c] = i;
+    prevSum += nums[i];
+    
+    if (prevSum <= couponValue) {
+      coupon(arr, nums, n, c + 1, couponValue, prevSum);
     }
+
+    prevSum -= nums[i];
   }
 }
 
@@ -33,5 +32,6 @@ int main() {
   std::cout << "\n";
   
   coupon(new int[n], arr, n, 0, couponValue, 0);
+  std::cout << "\n\n" << count;
   return 0;
 }

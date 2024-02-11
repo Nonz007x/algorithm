@@ -1,7 +1,9 @@
 #include <iostream>
 
+int count = 0;
 int plate(int *arr, int *nums, int n, int k, int prevBit) {
-	if (k == n) {
+  count++;
+	if (k >= n) {
 		int sum = 0;
     for (int i = 0; i < n; i++) { 
       std::cout << arr[i];
@@ -10,23 +12,21 @@ int plate(int *arr, int *nums, int n, int k, int prevBit) {
 
 		for (int i = 0; i < n; i++) {
 			if (arr[i] == 1) {
-				sum += nums[i];
+			  sum += nums[i];
 			}  
 		}
 		return sum;
 	}
-	else {
-    int a = INT32_MIN;
-    int b = INT32_MIN;
-    if (prevBit != 1) {
-      arr[k] = 1;
-      a = plate(arr, nums, n, k + 1, 1);
-    }
 
-    arr[k] = 0;
-    b = plate(arr, nums, n, k + 1, 0);
-    return std::max(a, b);
-	}
+  int a = INT32_MIN;
+  int b = INT32_MIN;
+
+  arr[k] = 1;
+  a = plate(arr, nums, n, k + 2, 1);
+  arr[k] = 0;
+  b = plate(arr, nums, n, k + 1, 0);
+
+  return std::max(a, b);
 }
 
 int main() {
@@ -38,7 +38,7 @@ int main() {
 	}
 
 	std::cout << plate(arr, nums, n, 0, 0);
-
+  std::cout << "\n" << count;
   // from 1024 to 144
 	return 0;
 }
