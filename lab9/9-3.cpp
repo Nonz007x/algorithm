@@ -18,20 +18,30 @@ int buildPlatform(vector<pair<double, double>> ad_times, const int n) {
   }
 
   cout << endl;
-  
-  int platform = 1;
+  vector<int> platforms(n, 0);
+  int platformCount = 1;
+  int process = 0;
+  bool created;
   for (int i = 0; i < n; i++) {
-    for (int j = 0; j < i; j++) {
-      if (ad_times[j].second <= ad_times[i].first) {
+    created = false;
+    for (int j = 0; j < platformCount; j++) {
+      if (ad_times[i].first >= platforms[j]) {
+        process++;
+        created = true;
+        platforms[j] = ad_times[i].second;
         break;
       }
-      if (j == i - 1) {
-        platform++;
-      }
+
+    }
+    if (!created && platformCount < 3) {
+      process++;
+      platformCount++;
+      platforms[i] = ad_times[i].second;
     }
   }
   
-  return platform;
+  cout << process << "\n";
+  return platformCount;
 }
 
 int main() {
