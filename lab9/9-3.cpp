@@ -6,7 +6,7 @@
 using namespace std;
 
 bool leastDeptTime(pair<double, double> a, pair<double, double> b) {
-  return a.second < b.second;
+  return a.first < b.first;
 }
 
 int buildPlatform(vector<pair<double, double>> ad_times, const int n) {
@@ -33,7 +33,7 @@ int buildPlatform(vector<pair<double, double>> ad_times, const int n) {
       }
 
     }
-    if (!created && platformCount < 3) {
+    if (!created) {
       process++;
       platformCount++;
       platforms[i] = ad_times[i].second;
